@@ -1,457 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Euro Fresh - Online Grocery</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Font: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f8f8; /* Light grey background */
-        }
-        /* Custom scrollbar for the cart sidebar */
-        .cart-sidebar::-webkit-scrollbar {
-            width: 8px;
-        }
-        .cart-sidebar::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        .cart-sidebar::-webkit-scrollbar-thumb {
-            background: #a7f3d0; /* Light green */
-            border-radius: 10px;
-        }
-        .cart-sidebar::-webkit-scrollbar-thumb:hover {
-            background: #6ee7b7; /* Darker light green */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Euro Fresh - Online Grocery</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
 
-    <!-- Header Section -->
-    <header class="bg-white shadow-md py-4 px-6 md:px-10 flex flex-col md:flex-row items-center justify-between sticky top-0 z-50">
-        <!-- Logo/Site Name -->
-        <div class="flex items-center mb-4 md:mb-0">
-            <i class="fas fa-leaf text-green-500 text-3xl mr-2"></i>
-            <h1 class="text-3xl font-bold text-green-700">Euro Fresh</h1>
+  <header>
+    <nav class="nav container">
+      <a href="#" class="logo">
+        <i class='bx bxs-shopping-bag-alt'></i>
+        Euro Fresh
+      </a>
+      <i class='bx bx-menu' id="menu-icon"></i>
+      <div class="nav-links">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#products" class="nav-link filter-btn" data-category="all">All</a>
+        <a href="#products" class="nav-link filter-btn" data-category="fruits">Fruits</a>
+        <a href="#products" class="nav-link filter-btn" data-category="vegetables">Vegetables</a>
+        <a href="#products" class="nav-link filter-btn" data-category="bakery">Bakery</a>
+        <a href="#products" class="nav-link filter-btn" data-category="meat">Meat</a>
+        <a href="#products" class="nav-link filter-btn" data-category="dairy">Dairy</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-right">
+        <div class="search-box">
+          <i class='bx bx-search'></i>
+          <input type="search" placeholder="Search products...">
         </div>
+        <div class="cart-icon">
+          <i class='bx bxs-cart'></i>
+          <span class="cart-item-count">0</span>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-        <!-- Category Navigation -->
-        <nav class="flex flex-wrap justify-center md:justify-start gap-3 md:gap-6 mb-4 md:mb-0">
-            <!-- Added Home button -->
-            <button class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-green-100 text-green-800 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" data-category="Home">Home</button>
-            <button class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" data-category="All">All</button>
-            <button class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" data-category="Fruits">Fruits</button>
-            <button class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" data-category="Vegetables">Vegetables</button>
-            <button class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" data-category="Bakery">Bakery</button>
-            <button class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" data-category="Meat">Meat</button>
-            <button class="category-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50" data-category="Dairy">Dairy</button>
-        </nav>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1>Welcome to Euro Fresh!</h1>
+        <p>Your one-stop shop for the freshest groceries delivered right to your door.</p>
+      </div>
+    </section>
 
-        <!-- Search Bar and Cart Icon -->
-        <div class="flex items-center w-full md:w-auto">
-            <div class="relative flex-grow mr-4">
-                <input type="text" id="search-input" placeholder="Search products..." class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200">
-                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            </div>
-            <button id="cart-icon" class="relative bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
-                <i class="fas fa-shopping-cart text-xl"></i>
-                <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
-            </button>
-        </div>
-    </header>
+    <section class="shop-info container" id="products">
+      <h2 class="section-title">About Euro Fresh</h2>
+      <p style="text-align:center; font-size:1.1rem;">
+        At Euro Fresh, we specialize in delivering top-quality groceries directly to your doorstep.
+        Use the menu above to browse products by category.
+      </p>
+      <div class="product-grid"></div> <!-- will populate after clicking a category -->
+    </section>
 
-    <!-- Main Content Area -->
-    <main class="container mx-auto p-6 flex-grow">
-        <!-- Home Page Hero Section (Conditionally displayed) -->
-        <section id="home-hero" class="bg-gradient-to-r from-green-100 to-lime-100 rounded-2xl p-8 mb-8 shadow-lg text-center flex flex-col items-center hidden">
-            <h2 class="text-4xl font-extrabold text-green-800 mb-4">Welcome to Euro Fresh!</h2>
-            <p class="text-lg text-gray-700 mb-6 max-w-2xl mx-auto">Your one-stop shop for the freshest groceries delivered right to your door. Explore our wide range of organic fruits, vegetables, bakery delights, and quality meats.</p>
-            <!-- Added long photo for home page -->
-            <img src="images/1.jpg" alt="Fresh Produce Banner" class="w-full h-auto rounded-lg mb-6 shadow-md object-cover">
-            <button id="shop-now-btn" class="bg-green-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-green-700 transition-colors duration-200 shadow-md">
-                Shop Now <i class="fas fa-arrow-right ml-2"></i>
-            </button>
-        </section>
+    <section class="contact container" id="contact">
+      <h2 class="section-title">Contact Us</h2>
+      <div class="contact-form-container">
+        <form id="contact-form">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" placeholder="Message" rows="5" required></textarea>
+          <button type="submit" class="btn-send">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
 
-        <h2 id="products-heading" class="text-3xl font-bold text-gray-800 mb-6 text-center">Our Products</h2>
-        <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- Product cards will be injected here by JavaScript -->
-        </div>
-    </main>
-
-    <!-- Cart Sidebar -->
-    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col cart-sidebar">
-        <div class="flex justify-between items-center p-5 border-b border-gray-200">
-            <h3 class="text-2xl font-semibold text-gray-800">Your Cart</h3>
-            <button id="close-cart-btn" class="text-gray-500 hover:text-gray-700 text-3xl focus:outline-none">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div id="cart-items-container" class="flex-grow p-5 overflow-y-auto">
-            <!-- Cart items will be injected here by JavaScript -->
-            <p id="empty-cart-message" class="text-gray-500 text-center mt-10 hidden">Your cart is empty.</p>
-        </div>
-        <div class="p-5 border-t border-gray-200">
-            <div class="flex justify-between items-center mb-4">
-                <span class="text-lg font-semibold text-gray-700">Subtotal:</span>
-                <span id="cart-subtotal" class="text-xl font-bold text-green-600">$0.00</span>
-            </div>
-            <button class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold text-lg hover:bg-green-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
-                Proceed to Checkout
-            </button>
-        </div>
+  <div class="cart">
+    <div class="cart-header">
+      <h2 class="cart-title">Your Cart</h2>
+      <i class='bx bx-x' id="cart-close"></i>
     </div>
-
-    <!-- Toast Notification -->
-    <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2">
-        <!-- Toasts will be injected here -->
+    <div class="cart-content"></div>
+    <div class="cart-footer">
+      <div class="total">
+        <div class="total-title">Subtotal:</div>
+        <div class="total-price">RS 0.00</div>
+      </div>
+      <button type="button" class="btn-buy">Proceed to Checkout</button>
     </div>
+  </div>
 
-    <script>
-        // --- Data Model ---
-        const products = [
-            { id: 1, name: "Fresh Strawberries", category: "Fruits", price: 1299.00, image: "./images/2.jpg" },
-            { id: 2, name: "Organic Bananas", category: "Fruits", price: 299.00, image: "./images/7.jpeg" },
-            { id: 3, name: "Green Bell Peppers (250g)", category: "Vegetables", price: 199.00, image: "./images/8.jpg" },
-            { id: 4, name: "Farm Fresh Eggs (Dozen)", category: "Dairy", price: 459.00, image: "./images/6.jpg" },
-            { id: 5, name: "Artisan Sourdough Bread", category: "Bakery", price: 269.00, image: "./images/5.webp" },
-            { id: 6, name: "Wild Caught Salmon Fillet", category: "Meat", price: 2589.00, image: "./images/3.webp" },
-            { id: 7, name: "Organic Spinach", category: "Vegetables", price: 159.00, image: "./images/9.avif" },
-            { id: 8, name: "Blueberries (Pint)", category: "Fruits", price: 899.00, image: "./images/4.jpeg" },
-            { id: 9, name: "Whole Wheat Bread", category: "Bakery", price: 259.00, image: "./images/12.jpg" },
-            { id: 10, name: "Chicken Breast (1lb)", category: "Meat", price: 888.00, image: "./images/13.webp" },
-            { id: 11, name: "Cheddar Cheese Block", category: "Dairy", price: 999.00, image: "./images/16.jpg" },
-            { id: 12, name: "Avocados (Bag of 3)", category: "Fruits", price: 329.00, image: "./images/10.jpeg" },
-            { id: 13, name: "Roma Tomatoes", category: "Vegetables", price: 412.00, image: "./images/11.jpg" },
-            { id: 14, name: "Ground Beef (1lb)", category: "Meat", price: 1099.00, image: "./images/14.webp" },
-            { id: 15, name: "Greek Yogurt (32oz)", category: "Dairy", price: 789.00, image: "./images/15.jpeg" }     
-        ];
+  <div id="toast-container"></div>
 
-        // --- Global State ---
-        let cartItems = []; // { productId: 1, quantity: 2 }
-        let currentCategory = "Home"; // Changed default to "Home"
-        let searchTerm = "";
-
-        // --- DOM Elements ---
-        const productListDiv = document.getElementById('product-list');
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        const searchInput = document.getElementById('search-input');
-        const cartIcon = document.getElementById('cart-icon');
-        const cartCountSpan = document.getElementById('cart-count');
-        const cartSidebar = document.getElementById('cart-sidebar');
-        const closeCartBtn = document.getElementById('close-cart-btn');
-        const cartItemsContainer = document.getElementById('cart-items-container');
-        const cartSubtotalSpan = document.getElementById('cart-subtotal');
-        const emptyCartMessage = document.getElementById('empty-cart-message');
-        const toastContainer = document.getElementById('toast-container');
-        const homeHeroSection = document.getElementById('home-hero'); // New DOM element
-        const productsHeading = document.getElementById('products-heading'); // New DOM element
-        const shopNowBtn = document.getElementById('shop-now-btn'); // New DOM element
-
-        // --- Functions ---
-
-        /**
-         * Renders product cards based on the current category and search term.
-         */
-        function renderProducts() {
-            productListDiv.innerHTML = ''; // Clear existing products
-
-            // Hide/show home hero section and products heading based on category
-            if (currentCategory === "Home") {
-                homeHeroSection.classList.remove('hidden');
-                productsHeading.classList.add('hidden'); // Hide products heading on Home page
-            } else {
-                homeHeroSection.classList.add('hidden');
-                productsHeading.classList.remove('hidden'); // Show products heading on other pages
-                productsHeading.textContent = "Our Products"; // Revert heading for other categories
-            }
-
-            // Only render products if not on the "Home" page
-            if (currentCategory !== "Home") {
-                const filteredProducts = products.filter(product => {
-                    const matchesCategory = (currentCategory === "All" || product.category === currentCategory);
-                    const matchesSearch = searchTerm === "" || product.name.toLowerCase().includes(searchTerm.toLowerCase());
-                    return matchesCategory && matchesSearch;
-                });
-
-                if (filteredProducts.length === 0) {
-                    productListDiv.innerHTML = '<p class="text-center text-gray-500 col-span-full">No products found matching your criteria.</p>';
-                    return;
-                }
-
-                filteredProducts.forEach(product => {
-                    const productCard = document.createElement('div');
-                    productCard.className = 'bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 ease-in-out';
-                    productCard.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
-                        <div class="p-5">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">${product.name}</h3>
-                            <p class="text-gray-600 text-sm mb-3">${product.category}</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-2xl font-bold text-green-600">RS ${product.price.toFixed(2)}</span>
-                                <button class="add-to-cart-btn bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75" data-product-id="${product.id}">
-                                    <i class="fas fa-plus mr-1"></i> Add
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    productListDiv.appendChild(productCard);
-                });
-
-                // Attach event listeners to new "Add to Cart" buttons
-                document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-                    button.addEventListener('click', (event) => {
-                        const productId = parseInt(event.currentTarget.dataset.productId);
-                        addToCart(productId);
-                    });
-                });
-            }
-        }
-
-        /**
-         * Adds a product to the cart or increments its quantity.
-         * @param {number} productId - The ID of the product to add.
-         */
-        function addToCart(productId) {
-            const existingItemIndex = cartItems.findIndex(item => item.productId === productId);
-            const product = products.find(p => p.id === productId);
-
-            if (!product) {
-                showToast('Error: Product not found.', 'error');
-                return;
-            }
-
-            if (existingItemIndex > -1) {
-                cartItems[existingItemIndex].quantity++;
-            } else {
-                cartItems.push({ productId: productId, quantity: 1 });
-            }
-            updateCartDisplay();
-            showToast(`${product.name} added to cart!`, 'success');
-        }
-
-        /**
-         * Removes an item from the cart.
-         * @param {number} productId - The ID of the product to remove.
-         */
-        function removeFromCart(productId) {
-            cartItems = cartItems.filter(item => item.productId !== productId);
-            updateCartDisplay();
-            showToast('Item removed from cart.', 'info');
-        }
-
-        /**
-         * Adjusts the quantity of an item in the cart.
-         * @param {number} productId - The ID of the product.
-         * @param {number} change - The amount to change the quantity by (+1 or -1).
-         */
-        function adjustQuantity(productId, change) {
-            const itemIndex = cartItems.findIndex(item => item.productId === productId);
-            if (itemIndex > -1) {
-                cartItems[itemIndex].quantity += change;
-                if (cartItems[itemIndex].quantity <= 0) {
-                    removeFromCart(productId); // Remove if quantity drops to 0 or less
-                } else {
-                    updateCartDisplay();
-                }
-            }
-        }
-
-        /**
-         * Updates the display of items in the cart sidebar and the cart count.
-         */
-        function updateCartDisplay() {
-            cartItemsContainer.innerHTML = ''; // Clear existing cart items
-            let totalQuantity = 0;
-            let subtotal = 0;
-
-            if (cartItems.length === 0) {
-                emptyCartMessage.classList.remove('hidden');
-            } else {
-                emptyCartMessage.classList.add('hidden');
-                cartItems.forEach(item => {
-                    const product = products.find(p => p.id === item.productId);
-                    if (product) {
-                        const itemTotal = product.price * item.quantity;
-                        subtotal += itemTotal;
-                        totalQuantity += item.quantity;
-
-                        const cartItemDiv = document.createElement('div');
-                        cartItemDiv.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg mb-3 shadow-sm';
-                        cartItemDiv.innerHTML = `
-                            <div class="flex items-center">
-                                <img src="${product.image}" alt="${product.name}" class="w-16 h-16 rounded-md object-cover mr-3">
-                                <div>
-                                    <h4 class="font-medium text-gray-800">${product.name}</h4>
-                                    <p class="text-sm text-gray-600">RS ${product.price.toFixed(2)} x ${item.quantity}</p>
-                                    <p class="text-md font-semibold text-green-700">RS ${itemTotal.toFixed(2)}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <button class="quantity-btn bg-gray-200 text-gray-700 px-2 py-1 rounded-md hover:bg-gray-300 transition-colors duration-150" data-product-id="${product.id}" data-change="-1">-</button>
-                                <span class="font-medium">${item.quantity}</span>
-                                <button class="quantity-btn bg-gray-200 text-gray-700 px-2 py-1 rounded-md hover:bg-gray-300 transition-colors duration-150" data-product-id="${product.id}" data-change="1">+</button>
-                                <button class="remove-from-cart-btn text-red-500 hover:text-red-700 p-1 rounded-full focus:outline-none" data-product-id="${product.id}">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        `;
-                        cartItemsContainer.appendChild(cartItemDiv);
-                    }
-                });
-            }
-
-            cartCountSpan.textContent = totalQuantity;
-            cartSubtotalSpan.textContent = `RS ${subtotal.toFixed(2)}`;
-
-            // Attach event listeners to new cart item buttons
-            document.querySelectorAll('.remove-from-cart-btn').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const productId = parseInt(event.currentTarget.dataset.productId);
-                    removeFromCart(productId);
-                });
-            });
-            document.querySelectorAll('.quantity-btn').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const productId = parseInt(event.currentTarget.dataset.productId);
-                    const change = parseInt(event.currentTarget.dataset.change);
-                    adjustQuantity(productId, change);
-                });
-            });
-        }
-
-        /**
-         * Displays a temporary toast notification.
-         * @param {string} message - The message to display.
-         * @param {string} type - 'success', 'error', or 'info' for styling.
-         */
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            let bgColorClass = 'bg-gray-800';
-            let textColorClass = 'text-white';
-            let iconClass = 'fas fa-info-circle';
-
-            if (type === 'success') {
-                bgColorClass = 'bg-green-500';
-                iconClass = 'fas fa-check-circle';
-            } else if (type === 'error') {
-                bgColorClass = 'bg-red-500';
-                iconClass = 'fas fa-exclamation-circle';
-            }
-
-            toast.className = `flex items-center px-4 py-3 rounded-lg shadow-lg ${bgColorClass} ${textColorClass} transition-all duration-300 transform translate-x-full opacity-0`;
-            toast.innerHTML = `
-                <i class="${iconClass} mr-2"></i>
-                <span>${message}</span>
-            `;
-
-            toastContainer.appendChild(toast);
-
-            // Animate in
-            setTimeout(() => {
-                toast.classList.remove('translate-x-full', 'opacity-0');
-                toast.classList.add('translate-x-0', 'opacity-100');
-            }, 50); // Small delay to ensure transition applies
-
-            // Animate out and remove
-            setTimeout(() => {
-                toast.classList.remove('translate-x-0', 'opacity-100');
-                toast.classList.add('translate-x-full', 'opacity-0');
-                toast.addEventListener('transitionend', () => toast.remove());
-            }, 3000); // Display for 3 seconds
-        }
-
-        // --- Event Listeners ---
-
-        // Category filtering
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                // Update active category button styling
-                categoryButtons.forEach(btn => {
-                    btn.classList.remove('bg-green-100', 'text-green-800');
-                    btn.classList.add('bg-white', 'text-gray-700');
-                });
-                event.currentTarget.classList.remove('bg-white', 'text-gray-700');
-                event.currentTarget.classList.add('bg-green-100', 'text-green-800');
-
-                currentCategory = event.currentTarget.dataset.category;
-                renderProducts();
-            });
-        });
-
-        // Search input
-        searchInput.addEventListener('input', (event) => {
-            searchTerm = event.target.value.trim();
-            // If on home page and search is typed, automatically switch to "All" category
-            if (currentCategory === "Home" && searchTerm !== "") {
-                currentCategory = "All";
-                // Update "All" button style
-                categoryButtons.forEach(btn => {
-                    btn.classList.remove('bg-green-100', 'text-green-800');
-                    btn.classList.add('bg-white', 'text-gray-700');
-                    if (btn.dataset.category === "All") {
-                        btn.classList.remove('bg-white', 'text-gray-700');
-                        btn.classList.add('bg-green-100', 'text-green-800');
-                    }
-                });
-            }
-            renderProducts();
-        });
-
-        // Toggle cart sidebar
-        cartIcon.addEventListener('click', () => {
-            cartSidebar.classList.remove('translate-x-full');
-            cartSidebar.classList.add('translate-x-0');
-        });
-
-        closeCartBtn.addEventListener('click', () => {
-            cartSidebar.classList.remove('translate-x-0');
-            cartSidebar.classList.add('translate-x-full');
-        });
-
-        // Close cart sidebar when clicking outside (optional, but good UX)
-        document.addEventListener('click', (event) => {
-            const isClickInsideCart = cartSidebar.contains(event.target) || cartIcon.contains(event.target);
-            if (!isClickInsideCart && !cartSidebar.classList.contains('translate-x-full')) {
-                cartSidebar.classList.remove('translate-x-0');
-                cartSidebar.classList.add('translate-x-full');
-            }
-        });
-
-        // "Shop Now" button on Home page
-        shopNowBtn.addEventListener('click', () => {
-            currentCategory = "All"; // Switch to "All" category
-            // Update "All" button style to active
-            categoryButtons.forEach(btn => {
-                btn.classList.remove('bg-green-100', 'text-green-800');
-                btn.classList.add('bg-white', 'text-gray-700');
-                if (btn.dataset.category === "All") {
-                    btn.classList.remove('bg-white', 'text-gray-700');
-                    btn.classList.add('bg-green-100', 'text-green-800');
-                }
-            });
-            renderProducts();
-        });
-
-
-        // --- Initial Render ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Manually set the "Home" button as active on initial load
-            const homeButton = document.querySelector('.category-btn[data-category="Home"]');
-            if (homeButton) {
-                homeButton.classList.remove('bg-white', 'text-gray-700');
-                homeButton.classList.add('bg-green-100', 'text-green-800');
-            }
-            renderProducts();
-            updateCartDisplay(); // Initialize cart display
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
+<script>
+  // JavaScript to handle menu toggle, cart functionality, and product filtering
+  document.getElementById('menu-icon').addEventListener('click', function() {
+    document.querySelector('.nav-links').classList.toggle('active');
+  });
+
+  document.querySelectorAll('.filter-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const category = this.getAttribute('data-category');
+      filterProducts(category);
+    });
+  });
+
+  function filterProducts(category) {
+    // Logic to filter products based on category
+    console.log(`Filtering products by category: ${category}`);
+    // Populate product grid based on selected category
+  }
+
+  document.querySelector('.cart-icon').addEventListener('click', function() {
+    document.querySelector('.cart').classList.toggle('active');
+  });
+
+  document.getElementById('cart-close').addEventListener('click', function() {
+    document.querySelector('.cart').classList.remove('active');
+  });                                                       
